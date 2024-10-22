@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Willkommen in meinem Shop!</h1>
+        <nav>
+            <ul>
+                <li><a href="#produkte">Produkte</a></li>
+                <li><a href="#warenkorb">Warenkorb</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="produkte">
+            <h2>Produkte</h2>
+            <div class="produkt" data-name="Produkt 1" data-preis="29.99">
+                <h3>Produkt 1</h3>
+                <p>Beschreibung von Produkt 1.</p>
+                <button class="btn-kaufen">In den Warenkorb</button>
+            </div>
+            <div class="produkt" data-name="Produkt 2" data-preis="39.99">
+                <h3>Produkt 2</h3>
+                <p>Beschreibung von Produkt 2.</p>
+                <button class="btn-kaufen">In den Warenkorb</button>
+            </div>
+        </section>
+
+        <section id="warenkorb">
+            <h2>Warenkorb</h2>
+            <ul id="warenkorb-liste"></ul>
+            <p id="gesamtpreis">Gesamtpreis: 0 €</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mein Shop</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+section {
+    padding: 20px;
+}
+
+.produkt {
+    background: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #218838;
+}
+const warenkorbListe = document.getElementById('warenkorb-liste');
+const gesamtpreisElement = document.getElementById('gesamtpreis');
+let gesamtpreis = 0;
+
+document.querySelectorAll('.btn-kaufen').forEach(button => {
+    button.addEventListener('click', () => {
+        const produkt = button.parentElement;
+        const name = produkt.getAttribute('data-name');
+        const preis = parseFloat(produkt.getAttribute('data-preis'));
+
+        // Produkt zur Warenkorb-Liste hinzufügen
+        const li = document.createElement('li');
+        li.textContent = `${name} - ${preis} €`;
+        warenkorbListe.appendChild(li);
+
+        // Gesamtpreis aktualisieren
+        gesamtpreis += preis;
+        gesamtpreisElement.textContent = `Gesamtpreis: ${gesamtpreis.toFixed(2)} €`;
+    });
+});
